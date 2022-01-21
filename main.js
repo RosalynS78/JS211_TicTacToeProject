@@ -74,28 +74,31 @@ const diagonalWin = () => {
     return false;
   }
 }
-
-
 const checkForWin = () => {
-  if (horizontalWin() || verticalWin() || diagonalWin()) {
-    console.log(`Player ${playerTurn} won!`)
-    return true
-  } else {
-    changeMarker()
+  // Your code here call each of the check for types of wins
+  // check all 3 types of wins 
+  //if verticalwin returns true OR diagonal OR horizontal 
+  if (verticalWin() || diagonalWin() || horizontalWin()) {
+    return true;
   }
 }
-
-
+// == comparison
+//= assigning 
+// pass a argument of row and column
 const ticTacToe = (row, column) => {
-  board[row][column] = playerTurn 
-  
-  checkForWin()
-}
-const changeMarker = () => {
-  if(playerTurn === "X"){
-    playerTurn = "O"
+
+  if (board[row][column] == ' ') {
+    board[row][column] = playerTurn;
+    if (checkForWin() == true) {
+      console.log("Player " + playerTurn + " won!")
+    }
+    if (playerTurn == "X") {
+      playerTurn = "O"
+    } else {
+      playerTurn = "X"
+    }
   } else {
-    playerTurn = "X"
+    console.log("Can't move here!")
   }
 }
 
@@ -109,6 +112,7 @@ const getPrompt = () => {
     });
   });
 }
+
 
 
 // Unit Tests

@@ -21,7 +21,6 @@ let board = [
 // assigns the first mark as 'X'
 // using let because the variable is expected to change from 'X' to 'O' and back
 let playerTurn = 'X';
-
 // is a function that print the current status of the board using the variable - board
 const printBoard = () => {
   console.log('   0  1  2');
@@ -33,25 +32,87 @@ const printBoard = () => {
 }
 
 const horizontalWin = () => {
-  // Your code here to check for horizontal wins
+  if ((board[0][0] == "X" && board[0][1] == "X" && board[0][2] == "X") ||
+    (board[0][0] == "O" && board[0][1] == "O" && board[0][2] == "O") ||
+    (board[1][0] == "X" && board[1][1] == "X" && board[1][2] == "X") ||
+    (board[1][0] == "O" && board[1][1] == "O" && board[1][2] == "O") ||
+    (board[2][0] == "X" && board[2][1] == "X" && board[2][2] == "X") ||
+    (board[2][0] == "O" && board[2][1] == "O" && board[2][2] == "O")
+
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+
 }
+
 
 const verticalWin = () => {
-  // Your code here to check for vertical wins
+  if ((board[0][0] == "X" && board[1][0] == "X" && board[2][0] == "X") ||
+    (board[0][0] == "O" && board[1][0] == "O" && board[2][0] == "O") ||
+    (board[0][1] == "X" && board[1][1] == "X" && board[2][1] == "X") ||
+    (board[0][1] == "O" && board[1][1] == "O" && board[2][1] == "O") ||
+    (board[0][2] == "X" && board[1][2] == "X" && board[2][2] == "X") ||
+    (board[0][2] == "O" && board[1][2] == "O" && board[2][2] == "O")
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 }
+
 
 const diagonalWin = () => {
-  // Your code here to check for diagonal wins
+  if ((board[0][0] == "X" && board[1][1] == "X" && board[2][2] == "X") ||
+    (board[0][0] == "O" && board[1][1] == "O" && board[2][2] == "O") ||
+    (board[2][0] == "X" && board[1][1] == "X" && board[0][2] == "X") ||
+    (board[2][0] == "O" && board[1][1] == "O" && board[0][2] == "O")
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 }
+
 
 const checkForWin = () => {
-  // Your code here call each of the check for types of wins
-}
 
-const ticTacToe = (row, column) => {
-  // Your code here to place a marker on the board
-  // then check for a win
-}
+    // the code snippet you copy/pasted has a function called checkForWin which you'll notice calls changeMarker if none of the winning rules(see above), are met.
+    if (horizontalWin() || verticalWin() || diagonalWin()) {
+      return true;
+    }
+  }
+
+  // const changeMarker = () => {
+  //   if (playerTurn === "X") {
+  //     playerTurn = "O"
+  //   } else {
+  //     playerTurn = "X"
+  //   }
+  // }
+  //  === strict comparison
+  // == comparison
+  //= assigning 
+  
+  
+  const ticTacToe = (row, column) => {
+  
+    if (board[row][column] == ' ') {
+      board[row][column] = playerTurn;
+      if (checkForWin() == true) {
+        console.log(`Player ${playerTurn} won!`) 
+        // currentMarker has changed to playerTurn
+      }
+      if (playerTurn == "X") {
+        playerTurn = "O"
+      } else {
+        playerTurn = "X"
+      }
+    }
+  }
+
+
 
 const getPrompt = () => {
   printBoard();
@@ -65,6 +126,7 @@ const getPrompt = () => {
 }
 
 
+
 // Unit Tests
 // You use them run the command: npm test main.js
 // to close them ctrl + C
@@ -73,22 +135,42 @@ if (typeof describe === 'function') {
   describe('#ticTacToe()', () => {
     it('should place mark on the board', () => {
       ticTacToe(1, 1);
-      assert.deepEqual(board, [ [' ', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
+      assert.deepEqual(board, [
+        [' ', ' ', ' '],
+        [' ', 'X', ' '],
+        [' ', ' ', ' ']
+      ]);
     });
     it('should alternate between players', () => {
       ticTacToe(0, 0);
-      assert.deepEqual(board, [ ['O', ' ', ' '], [' ', 'X', ' '], [' ', ' ', ' '] ]);
+      assert.deepEqual(board, [
+        ['O', ' ', ' '],
+        [' ', 'X', ' '],
+        [' ', ' ', ' ']
+      ]);
     });
     it('should check for vertical wins', () => {
-      board = [ [' ', 'X', ' '], [' ', 'X', ' '], [' ', 'X', ' '] ];
+      board = [
+        [' ', 'X', ' '],
+        [' ', 'X', ' '],
+        [' ', 'X', ' ']
+      ];
       assert.equal(verticalWin(), true);
     });
     it('should check for horizontal wins', () => {
-      board = [ ['X', 'X', 'X'], [' ', ' ', ' '], [' ', ' ', ' '] ];
+      board = [
+        ['X', 'X', 'X'],
+        [' ', ' ', ' '],
+        [' ', ' ', ' ']
+      ];
       assert.equal(horizontalWin(), true);
     });
     it('should check for diagonal wins', () => {
-      board = [ ['X', ' ', ' '], [' ', 'X', ' '], [' ', ' ', 'X'] ];
+      board = [
+        ['X', ' ', ' '],
+        [' ', 'X', ' '],
+        [' ', ' ', 'X']
+      ];
       assert.equal(diagonalWin(), true);
     });
     it('should detect a win', () => {

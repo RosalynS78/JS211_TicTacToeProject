@@ -74,33 +74,45 @@ const diagonalWin = () => {
     return false;
   }
 }
-const checkForWin = () => {
-  // Your code here call each of the check for types of wins
-  // check all 3 types of wins 
-  //if verticalwin returns true OR diagonal OR horizontal 
-  if (verticalWin() || diagonalWin() || horizontalWin()) {
-    return true;
-  }
-}
-// == comparison
-//= assigning 
-// pass a argument of row and column
-const ticTacToe = (row, column) => {
 
-  if (board[row][column] == ' ') {
-    board[row][column] = playerTurn;
-    if (checkForWin() == true) {
-      console.log("Player " + playerTurn + " won!")
+
+const checkForWin = () => {
+
+    // the code snippet you copy/pasted has a function called checkForWin which you'll notice calls changeMarker if none of the winning rules(see above), are met.
+    if (horizontalWin() || verticalWin() || diagonalWin()) {
+      return true;
     }
-    if (playerTurn == "X") {
-      playerTurn = "O"
-    } else {
-      playerTurn = "X"
-    }
-  } else {
-    console.log("Can't move here!")
   }
-}
+
+  // const changeMarker = () => {
+  //   if (playerTurn === "X") {
+  //     playerTurn = "O"
+  //   } else {
+  //     playerTurn = "X"
+  //   }
+  // }
+  //  === strict comparison
+  // == comparison
+  //= assigning 
+  
+  
+  const ticTacToe = (row, column) => {
+  
+    if (board[row][column] == ' ') {
+      board[row][column] = playerTurn;
+      if (checkForWin() == true) {
+        console.log(`Player ${playerTurn} won!`) 
+        // currentMarker has changed to playerTurn
+      }
+      if (playerTurn == "X") {
+        playerTurn = "O"
+      } else {
+        playerTurn = "X"
+      }
+    }
+  }
+
+
 
 const getPrompt = () => {
   printBoard();
